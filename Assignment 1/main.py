@@ -6,10 +6,8 @@ if len(sys.argv) <= 1:
     print('Usage : "python ProxyServer.py server_ip"\n[server_ip : It is the IP Address Of Proxy Server]')
     sys.exit(2)
 
-# cache map: key = cache filename, value = full file path
 cache = {}
 
-# Create server socket
 tcpSerSock = socket(AF_INET, SOCK_STREAM)
 tcpSerSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 tcpSerSock.bind(('', 8888))
@@ -28,8 +26,6 @@ while True:
         continue
 
     print(message)
-
-    # GET /www.google.com/index.html HTTP/1.1
     try:
         filename = message.split()[1].partition("/")[2]
     except IndexError:
@@ -45,7 +41,6 @@ while True:
 
     print("Cache key:", cache_filename)
 
-    # ✅ Check in map instead of filesystem directly
     if cache_filename in cache:
         print("Cache HIT")
         filepath = cache[cache_filename]
@@ -60,15 +55,11 @@ while True:
             print("Cache map stale: file missing. Removing.")
             del cache[cache_filename]
 
-    # ✅ Cache MISS → Fetch from remote server
     if cache_filename not in cache:
         print("Cache MISS → fetching from server...")
         filepath = "./" + cache_filename
-
-        # Extract hostname
         hostn = filename.replace("www.", "", 1).split('/')[0]
-
-        # Handle optional port
+        # this part is added for handling port numbers in URLs
         if ":" in hostn:
             parts = hostn.split(":")
             host = parts[0]
@@ -78,13 +69,9 @@ while True:
             port = 80
 
         print(f"Connecting to {host}:{port}")
-
-        # Create socket to web server
         try:
             c = socket(AF_INET, SOCK_STREAM)
             c.connect((host, port))
-
-            # Extract path for GET
             path = filename[len(hostn):]
             if not path:
                 path = "/"
