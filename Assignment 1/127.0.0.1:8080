@@ -1,0 +1,21 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.13.7
+Date: Wed, 29 Oct 2025 16:48:50 GMT
+Content-type: text/html; charset=utf-8
+Content-Length: 228
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href="test.jpg">test.jpg</a></li>
+</ul>
+<hr>
+</body>
+</html>
