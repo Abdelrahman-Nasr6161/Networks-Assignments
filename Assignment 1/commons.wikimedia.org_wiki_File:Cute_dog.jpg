@@ -1,0 +1,8 @@
+HTTP/1.1 301 Moved Permanently
+content-length: 0
+location: https://commons.wikimedia.org/wiki/File:Cute_dog.jpg
+server: HAProxy
+x-cache: cp6009 int
+x-cache-status: int-tls
+connection: close
+
